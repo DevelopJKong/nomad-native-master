@@ -1,29 +1,21 @@
-import AppLoading from "expo-app-loading";
-import React, { useState } from "react";
-import * as Font from "expo-font";
-import { Ionicons } from "@expo/vector-icons";
-import { NavigationContainer } from "@react-navigation/native";
-import { Tabs } from "@material-ui/core";
+import React from "react";
+import Tabs from "./navigation/Tabs";
+import {
+  NavigationContainer,
+  DarkTheme,
+  DefaultTheme,
+} from "@react-navigation/native";
+import { useColorScheme } from "react-native";
+import Stack from "./navigation/Stack";
 
-export default function App() {
-  const [ready, setReady] = useState(false);
-  const onFinish = () => setReady(true);
-  const startLoading = async () => {
-    await Font.loadAsync(Ionicons);
-  };
-  if (!ready) {
-    return (
-      <AppLoading
-        startAsync={startLoading}
-        onFinish={onFinish}
-        onError={console.error}
-      />
-    );
-  }
 
+function App() {
+  const isDark = useColorScheme() === "dark";
   return (
-    <NavigationContainer>
-      <Tabs />
+    <NavigationContainer theme={isDark ? DarkTheme : DefaultTheme}>
+      <Stack />
     </NavigationContainer>
   );
 }
+
+export default App;
